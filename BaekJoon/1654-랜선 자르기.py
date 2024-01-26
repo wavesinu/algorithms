@@ -1,0 +1,22 @@
+k, n = map(int, input().split())
+lans = [int(input()) for _ in range(k)]
+
+
+# n개의 랜선을 만들 수 있는 최대 길이를 구하는 함수
+def binary_search(lans, n):
+    start, end = 1, max(lans)
+    result = 0
+    while start <= end:
+        total = 0
+        mid = (start + end) // 2
+        for lan in lans:
+            total += lan // mid
+        if total >= n:
+            start = mid + 1
+            result = mid
+        else:
+            end = mid - 1
+    return result
+
+print(binary_search(lans, n))
+
