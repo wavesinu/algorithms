@@ -19,4 +19,3 @@ def binary_search(lans, n):
     return result
 
 print(binary_search(lans, n))
-
