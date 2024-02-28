@@ -6,7 +6,7 @@ def solution(user_id: str) -> str:
     symbols = set(["-", "_", "."])
 
     def is_valid_char(char, symbols):
-        return char.isalpha() or char in symbols
+        return char.isalnum() or char in symbols
 
     # symbols와 다른 기호를 삭제
     new_id = ''.join(char for char in new_id if is_valid_char(char, symbols))
