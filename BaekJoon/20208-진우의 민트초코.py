@@ -2,11 +2,17 @@ from collections import deque
 
 
 def bfs(n, m, h, board):
-    dx = [0, 0, -1, 1]
-    dy = [1, -1, 0, 0]
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, 1, -1]
 
-    queue = deque([(0, 0, m)])
-    board[0][0] = -1
+    for i in range(n):
+        for j in range(n):
+            if board[i][j] == 1:
+                start_x, start_y = i, j
+                break
+
+    queue = deque([(start_x, start_y, m)])
+    board[start_x][start_y] = -1
     count = 0
 
     while queue:
