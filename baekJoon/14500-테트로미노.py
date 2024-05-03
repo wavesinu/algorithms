@@ -16,12 +16,36 @@ def max_tetromino_sum(board, N, M):
                 dfs(nx, ny, depth + 1, current_sum + board[nx][ny])
                 visited[nx][ny] = False
 
+    # 'ㅗ' 모양과 같은 특수한 모양을 처리하는 함수
+    def check_extra_shapes(x, y):
+        nonlocal max_sum
+        # 중심을 기준으로 하는 'ㅗ', 'ㅜ', 'ㅏ', 'ㅓ' 모양
+        shapes = [
+            [(0, 0), (0, 1), (0, 2), (-1, 1)],  # ㅗ
+            [(0, 0), (0, 1), (0, 2), (1, 1)],   # ㅜ
+            [(0, 0), (1, 0), (2, 0), (1, 1)],   # ㅏ
+            [(0, 0), (1, 0), (2, 0), (1, -1)]   # ㅓ
+        ]
+        for shape in shapes:
+            current_sum = 0
+            valid = True
+            for dx, dy in shape:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < N and 0 <= ny < M:
+                    current_sum += board[nx][ny]
+                else:
+                    valid = False
+                    break
+            if valid:
+                max_sum = max(max_sum, current_sum)
+
     # 모든 칸을 시작점으로 하여 DFS 실행
     for i in range(N):
         for j in range(M):
             visited[i][j] = True
             dfs(i, j, 1, board[i][j])  # 시작점도 카운트에 포함
             visited[i][j] = False
+            check_extra_shapes(i, j)  # 특수 모양 검사
 
     return max_sum
 
